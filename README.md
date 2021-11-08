@@ -1,7 +1,7 @@
 # Install-OpenCV-Jetson-Xavier (NX, AGX)
 ![output image]( https://qengineering.eu/images/LogoOpenJetsonGitHub.webp )
 
-##*This is a fork of Install-OpenCV-Jetson-Nano from [Q-engineering](https://github.com/Qengineering/Install-OpenCV-Jetson-Nano)*
+*This is the fork of Install-OpenCV-Jetson-Nano from [Q-engineering](https://github.com/Qengineering/Install-OpenCV-Jetson-Nano)*
 
 ## OpenCV installation script for a Jetson Xavier
 
@@ -12,6 +12,11 @@ For reference information see [Q-engineering - Install OpenCV Jetson Nano](https
 
 ------------
 
+# Attention!
+>This script will not work on Jetson Nano! <br>
+> Even if it will build, your OpenCV will fail with SEGV on imread, imshow etc.
+
+For Jetson Nano script look [here](https://github.com/Qengineering/Install-OpenCV-Jetson-Nano)
 # Before installation
 * Build can take up to 5 hours, so be prepared to wait for a while.
 
@@ -28,7 +33,7 @@ For reference information see [Q-engineering - Install OpenCV Jetson Nano](https
 
     If not, enlarge your swap space as explained in the guide, or only 1 core will be used for the compilation.
 
-* Xavier has enough RAM to build in 8-core way, but for stability reasons, we will use only 4 CPU cores.<br/>
+* Xavier has enough RAM to build in 8-core way, but for stability reasons, we will use only 6 CPU cores.<br/>
 Change NO_JOB=8 if you are brave enough (highly NOT recomended).<br/>
 
 

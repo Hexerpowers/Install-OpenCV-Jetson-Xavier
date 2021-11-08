@@ -1,13 +1,15 @@
 #!/bin/bash
 set -e
 
-echo "Installing OpenCV 4.5.4 on your Jetson Nano"
-echo "It will take 2.5 hours !"
+echo "Installing OpenCV 4.5.4 on your Jetson Xavier"
+echo "It will take ~ 5 hours !"
 
 # reveal the CUDA location
 cd ~
 sudo sh -c "echo '/usr/local/cuda/lib64' >> /etc/ld.so.conf.d/nvidia-tegra.conf"
 sudo ldconfig
+
+sudo apt-get purge '*libopencv*'
 
 # install the dependencies
 sudo apt-get install -y build-essential cmake git unzip pkg-config zlib1g-dev
@@ -56,7 +58,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D EIGEN_INCLUDE_PATH=/usr/include/eigen3 \
 -D WITH_OPENCL=OFF \
 -D WITH_CUDA=ON \
--D CUDA_ARCH_BIN=5.3 \
+-D CUDA_ARCH_BIN=7.2 \
 -D CUDA_ARCH_PTX="" \
 -D WITH_CUDNN=ON \
 -D WITH_CUBLAS=ON \
@@ -83,15 +85,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D BUILD_EXAMPLES=OFF ..
 
 # run make
-FREE_MEM="$(free -m | awk '/^Swap/ {print $2}')"
-# Use "-j 4" only swap space is larger than 5.5GB
-if [[ "FREE_MEM" -gt "5500" ]]; then
-  NO_JOB=4
-else
-  echo "Due to limited swap, make only uses 1 core"
-  NO_JOB=1
-fi
-make -j ${NO_JOB} 
+make -j4
 
 sudo rm -r /usr/include/opencv4/opencv2
 sudo make install
@@ -102,4 +96,4 @@ make clean
 sudo apt-get update
 
 echo "Congratulations!"
-echo "You've successfully installed OpenCV 4.5.4 on your Jetson Nano"
+echo "You've successfully installed OpenCV 4.5.4 on your Jetson Xavier"
